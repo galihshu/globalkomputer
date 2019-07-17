@@ -7,19 +7,7 @@ if (empty($_SESSION['username']) AND empty($_SESSION['password'])){
 // Apabila user sudah login dengan benar, maka terbentuklah session
 
 else { 
-	$aksi = "modul/mod_siswa/action.php";
-	$thn_sekarang = date("Y");
-
-	function combotgl($awal, $akhir, $var, $terpilih){
-	  echo "<select name=$var class='form-control'>";
-	  for ($i=$awal; $i<=$akhir; $i++){
-	    if ($i==$terpilih)
-	      echo "<option value=$i selected>$i</option>";
-	    else
-	      echo "<option value=$i>$i</option>";
-	  }
-	  echo "</select> ";
-	}
+	$aksi = "modul/mod_instruktur/action.php";
 
 	// mengatasi variabel yang belum di definisikan (notice undefined index)
 	$act = isset($_GET['act']) ? $_GET['act'] : ''; 
@@ -29,11 +17,11 @@ else {
     default: ?>
 		<section class="content-header">
 			<h1>
-				Siswa
+				Instruktur
 			</h1>
 			<ol class="breadcrumb">
 				<li><a href="media.php?module=home"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-				<li class="active">Siswa</li>
+				<li class="active">Instruktur</li>
 			</ol>
 		</section>
 
@@ -42,111 +30,26 @@ else {
         		<div class="col-xs-12">
           			<div class="box box-primary">
             			<div class="box-header">
-              				<h3 class="box-title">Data Siswa</h3>
+              				<h3 class="box-title">Data Instruktur</h3>
             			</div>
             			<div class="box-body">
 
 		      			<?php
-		      			if (isset($_POST['submit'])){
-
-		      				 if ((!isset($_POST['nisCat']) AND (!isset($_POST['nama_siswaCat'])) AND !isset($_POST['kode_programCat'])) AND (!isset($_POST['angkatanCat'])) AND (!isset($_POST['jekelCat']))) {
-		      					echo "Pilih kategori pencarian yang Anda inginkan!";
-											echo "</div>
-							        	</div>
-									</div>
-								</div>
-							</section>";
-							return;
-
-		      				}
-		      				else {
-
-			      				$bagianWhere = "";
-
-								if (isset($_POST['nisCat']))
-								{
-								   $nis = $_POST['nis'];
-								   if (empty($bagianWhere))
-								   {
-								        $bagianWhere .= "nis = '$nis'";
-								   }
-								}
-
-								if (isset($_POST['nama_siswaCat']))
-								{
-								   $nama_siswa = $_POST['nama_siswa'];
-								   if (empty($bagianWhere))
-								   {
-								        $bagianWhere .= "nama_siswa LIKE '%$nama_siswa%'";
-								   }
-								   else
-								   {
-								        $bagianWhere .= " AND nama_siswa LIKE '%$nama_siswa%'";
-								   }
-								}
-
-								if (isset($_POST['kode_programCat']))
-								{
-								   $kode_program = $_POST['kode_program'];
-								   if (empty($bagianWhere))
-								   {
-								        $bagianWhere .= "siswa.kode_program = '$kode_program'";
-								   }
-								   else
-								   {
-								        $bagianWhere .= " AND siswa.kode_program = '$kode_program'";
-								   }
-								}
-
-								if (isset($_POST['angkatanCat']))
-								{
-								   $angkatan = $_POST['angkatan'];
-								   if (empty($bagianWhere))
-								   {
-								        $bagianWhere .= "angkatan = '$angkatan'";
-								   }
-								   else
-								   {
-								        $bagianWhere .= " AND angkatan = '$angkatan'";
-								   }
-								}
-
-
-								if (isset($_POST['jekelCat']))
-								{
-								   $jekel = $_POST['jekel'];
-								   if (empty($bagianWhere))
-								   {
-								        $bagianWhere .= "jekel = '$jekel'";
-								   }
-								   else
-								   {
-								        $bagianWhere .= " AND jekel = '$jekel'";
-								   }
-								}
-
-			      				$query  = "SELECT * FROM siswa LEFT JOIN program_studi ON siswa.kode_program = program_studi.kode_program WHERE ".$bagianWhere;
-						        $hasil 	= mysqli_query($con, $query);
-						        $data  	= mysqli_fetch_all($hasil, MYSQLI_ASSOC);
-						    }
-
-		      			}
-		      			else {	
-		  				    $query  = "SELECT * FROM siswa LEFT JOIN program_studi ON siswa.kode_program = program_studi.kode_program ORDER BY nis ASC";
-					        $hasil 	= mysqli_query($con, $query);
-					        $data  	= mysqli_fetch_all($hasil, MYSQLI_ASSOC);
-					    }
+		      			$query  = "SELECT * FROM instruktur  ORDER BY kdinstruktur";
+				        $hasil 	= mysqli_query($con, $query);
+				        $data  	= mysqli_fetch_all($hasil, MYSQLI_ASSOC);
 		  				?>
 
-		  				<p><input type="button" class="btn btn-primary" value="Tambah Siswa" onclick="window.location.href='?module=siswa&act=add'"></p>
+		  				<p><input type="button" class="btn btn-primary" value="Tambah Instruktur" onclick="window.location.href='?module=instruktur&act=add'"></p>
 
+		  				<div class="responsive">
 	                    <table id="example1" class="table table-bordered table-striped">
 		                <thead>
 		                  <tr>
 		                    <th>No</th>
-		                    <th>NIS</th>
-		                    <th>Nama Siswa</th>
-		                    <th>Program Studi</th>
+		                    <th>Kd Instruktur</th>
+		                    <th>Nama Instruktur</th>
+		                    <th>Status</th>
 		                    <th>Email</th>
 		                    <th>No. Telpon</th>
 		                 	<th>Jenis Kelamin</th>
@@ -156,9 +59,9 @@ else {
 		                <tfoot>
 		                  <tr>
 		                    <th>No</th>
-		                    <th>NIS</th>
-		                    <th>Nama Siswa</th>
-		                    <th>Program Studi</th>
+		                    <th>Kd Instruktur</th>
+		                    <th>Nama Instruktur</th>
+		                    <th>Status</th>
 		                    <th>Email</th>
 		                    <th>No. Telpon</th>
 		                 	<th>Jenis Kelamin</th>
@@ -172,16 +75,16 @@ else {
 	  						?>
 							<tr>
 								<td><?php echo $no; ?></td>
-								<td><?php echo $r['nis']; ?></td>
-								<td><?php echo $r['nama_siswa']; ?></td>
-								<td><?php echo $r['nama_program']; ?></td>
+								<td><?php echo $r['kdinstruktur']; ?></td>
+								<td><?php echo $r['nama']; ?></td>
+								<td><?php echo $r['status']; ?></td>
 								<td><?php echo $r['email']; ?></td>
 								<td><?php echo $r['notelp']; ?></td>
 								<td><?php echo $r['jekel']; ?></td>
 								<td>
 									<center>
-										<a class="btn btn-warning" href="?module=siswa&act=edit&id=<?php echo $r['nis'];?>">Edit</a>
-										<a class="btn btn-danger" href="<?php echo $aksi .'?module=siswa&act=delete&id=' . $r['nis'];?>">Hapus</a>
+										<a class="btn btn-warning" href="?module=instruktur&act=edit&id=<?php echo $r['kdinstruktur'];?>">Edit</a>
+										<a class="btn btn-danger" href="<?php echo $aksi .'?module=instruktur&act=delete&id=' . $r['kdinstruktur'];?>">Hapus</a>
 									</center>
 								</td>
 							</tr>
@@ -191,6 +94,7 @@ else {
 							?>
 		                </tbody>
 		            </table>
+		        	</div>
 		    		</div>
 	        	</div>
 			</div>
@@ -201,7 +105,7 @@ else {
     case "add" : ?>
 	    <section class="content-header">
 	      <h1>
-	        Tambah Siswa
+	        Tambah Instruktur
 	      </h1>
 	      <ol class="breadcrumb">
 	        <li><a href="media.php?module=home"><i class="fa fa-dashboard"></i> Dashboard</a></li>
@@ -213,18 +117,18 @@ else {
 				<div class="col-md-12">
 		  			<div class="box box-primary">
 		    			<div class="box-header with-border">
-		      				<h3 class="box-title">Form Siswa</h3>
+		      				<h3 class="box-title">Form Instruktur</h3>
 		    			</div>
 
-	          			<form method="POST" action="<?php echo $aksi .'?module=siswa&act=input'; ?>" enctype="multipart/form-data">
+	          			<form method="POST" action="<?php echo $aksi .'?module=instruktur&act=input'; ?>" enctype="multipart/form-data">
 							<div class="box-body">
 							<div class="form-group">
-								<label for="exampleInputNis">Nomor Induk Siswa</label>
-								<input type="text" name="nis" class="form-control" id="nis" placeholder="Nomor Induk Siswa">
+								<label for="exampleInputNis">Kode Instruktur</label>
+								<input type="text" name="kdinstruktur" class="form-control" id="nis" placeholder="Kode Instruktur">
 							</div>
 							<div class="form-group">
-								<label for="exampleInputNama">Nama Siswa</label>
-								<input type="text" name="nama_siswa" class="form-control" id="nama_siswa" placeholder="Nama Siswa">
+								<label for="exampleInputNama">Nama Instruktur</label>
+								<input type="text" name="nama" class="form-control" id="nama" placeholder="Nama Instruktur">
 							</div>
 							<div class="form-group">
 								<label for="exampleInputPass">Password</label>
@@ -237,54 +141,7 @@ else {
 							</div>
 
 							<div class="form-group">
-								<label for="exampleInputNokwi">Nomor Kwitansi</label>
-								<input type="text" name="nokwi" class="form-control" id="nokwi" placeholder="Nomor Kwitansi">
-							</div>
-
-							<div class="form-group">
-								<label for="exampleInputDaftar">Tanggal Daftar</label>
-								<div class="input-group date">
-				                  <div class="input-group-addon">
-				                    <i class="fa fa-calendar"></i>
-				                  </div>
-				                  <input type="date" name="tgldaftar" class="form-control pull-right" id="tgldaftar" placeholder="Tanggal Daftar">
-				                </div>
-
-							</div>
-
-							<div class="form-group">
-								<label for="ProgramStudi">Program Studi</label>
-								<select class="form-control" name="kode_program" id="kode_program">
-									<option value="" selected>Pilih Program Studi</option>
-									<?php
-									$query = "SELECT * FROM program_studi ORDER BY kode_program";
-									$hasil = mysqli_query($con, $query);
-									$data = mysqli_fetch_all($hasil, MYSQLI_ASSOC);
-									foreach ($data as $a) :
-									?>
-									<option value="<?php echo $a['kode_program']; ?>"><?php echo $a['nama_program']; ?></option>
-									<?php endforeach; ?>
-								</select>
-							</div>
-							
-							<div class="form-group">
-								<label for="exampleInputAngkatan">Angkatan</label>
-								<select name="angkatan" class="form-control">
-									<option value="" selected>Pilih Angkatan</option>
-									<?php
-									for ($a=1990; $a<=$thn_sekarang;$a++){
-										echo "<option value='$a'>$a</option>";
-									}
-									?>
-								</select>
-							</div>
-
-	  						<div class="form-group">
-								<label for="exampleFormControlFile1">Foto Siswa</label>
-								<input type="file" name="foto" class="form-control-file" id="exampleFormControlFile1">
-							</div>
-							<div class="form-group">
-								<label for="exampleInputTitle">Alamat Siswa</label>
+								<label for="exampleInputTitle">Alamat Instruktur</label>
 								<textarea name="alamat" class="form-control" id="alamat" rows="3"></textarea>
 							</div>
 
@@ -331,23 +188,38 @@ else {
 								<label for="exampleInputTelpon">Nomor Telepon</label>
 								<input type="text" name="notelp" class="form-control" id="notelp" placeholder="Nomor Telepon">
 							</div>						
-							
-							<div class="form-group">
-								<label for="AsalSekolah">Asal Sekolah</label>
-								<input type="text" name="asalsekolah" class="form-control" id="asalsekolah" placeholder="Asal Sekolah">
-							</div>						
+
 
 							<div class="form-group">
-								<label for="Tahunlulus">Tahun Lulus</label>
-								<select name="thnlulus" class="form-control">
-									<option value="" selected>Pilih Tahun Lulus</option>
-									<?php
-									for ($tl=1990; $tl<=$thn_sekarang;$tl++){
-										echo "<option value='$tl'>$tl</option>";
-									}
-									?>
+								<label for="exampleInputTplhr">Pendidikan Terakhir</label>
+								<input type="text" name="pendidikan" class="form-control" id="pendidikan" placeholder="Pendidikan Terakhir">
+							</div>
+
+							<div class="form-group">
+								<label for="exampleInputTplhr">Jabatan</label>
+								<input type="text" name="jabatan" class="form-control" id="jabatan" placeholder="Jabatan">
+							</div>
+
+							<div class="form-group">
+								<label for="status">Status</label>
+								<select class="form-control" name="status" id="status">
+									<option value="" selected="">Pilih Status</option>
+									<option value="Instruktur Tetap">Instruktur Tetap</option>
+									<option value="Instruktur Freelance">Instruktur Freelance</option>
 								</select>
-							</div>								
+							</div>
+
+
+							<div class="form-group">
+								<label for="exampleInputTitle">Spesial Mengajar</label>
+								<textarea name="spesialmengajar" class="form-control" id="spesialmengajar" rows="3"></textarea>
+							</div>
+
+							
+							<div class="form-group">
+								<label for="exampleFormControlFile1">Foto Instruktur</label>
+								<input type="file" name="foto" class="form-control-file" id="exampleFormControlFile1">
+							</div>
 
 							<div class="box-footer">
 								<button type="submit" class="btn btn-primary">Simpan</button>

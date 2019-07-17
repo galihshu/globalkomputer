@@ -43,6 +43,7 @@
             <li><a href="media.php?module=programstudi">Program Studi</a></li>
             <li><a href="media.php?module=kelas">Kelas</a></li>
             <li><a href="media.php?module=matakuliah">Mata Kuliah</a></li>
+            <li><a href="media.php?module=instruktur">Instruktur</a></li>
           </ul>
         </li>
 
@@ -58,17 +59,6 @@
           </ul>
         </li>
 
-        <li class="treeview">
-          <a href="#"><i class="fa  fa-folder"></i> <span>Master Instruktur</span>
-            <span class="pull-right-container">
-                <i class="fa fa-angle-left pull-right"></i>
-              </span>
-          </a>
-          <ul class="treeview-menu">
-            <li><a href="#">Semua Instruktur</a></li>
-            <li><a href="#">Cari Instruktur</a></li>
-          </ul>
-        </li>
 
         <li class="treeview">
           <a href="#"><i class="fa fa-archive"></i> <span>Daftar Siswa Perkelas</span>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 17 Jul 2019 pada 01.24
+-- Waktu pembuatan: 17 Jul 2019 pada 05.37
 -- Versi server: 10.1.31-MariaDB
 -- Versi PHP: 7.2.3
 
@@ -31,6 +31,7 @@ SET time_zone = "+00:00";
 CREATE TABLE `instruktur` (
   `kdinstruktur` varchar(10) NOT NULL,
   `nama` varchar(150) NOT NULL,
+  `email` varchar(150) NOT NULL,
   `password` varchar(200) NOT NULL,
   `alamat` text NOT NULL,
   `notelp` varchar(15) NOT NULL,
@@ -49,9 +50,9 @@ CREATE TABLE `instruktur` (
 -- Dumping data untuk tabel `instruktur`
 --
 
-INSERT INTO `instruktur` (`kdinstruktur`, `nama`, `password`, `alamat`, `notelp`, `jekel`, `tplhr`, `tglhr`, `pendidikan`, `jabatan`, `agama`, `foto`, `status`, `spesialmengajar`) VALUES
-('001', 'Mudjirah', 'e10adc3949ba59abbe56e057f20f883e', 'Bukitkemuning Bandar Lampung', '0823XXXXXX', 'Wanita', 'Yogayakarta', '1972-03-02', 'Strata 1 (S1)', 'Akademik', 'Islam', '', 'Instruktur Tetap', 'Memotong, menjahit dan penyelesaian'),
-('002', 'Cipto Mangunkusumo', 'e10adc3949ba59abbe56e057f20f883e', 'Jl. Ana ana wae Kedaton Bandar Lampung', '0721077786', 'Pria', 'Bandung', '1986-08-01', 'Strata 1 (S1)', 'Akademik', 'Islam', '5018.jpg', 'Instruktur Tetap', 'Menggambar, Menjahit');
+INSERT INTO `instruktur` (`kdinstruktur`, `nama`, `email`, `password`, `alamat`, `notelp`, `jekel`, `tplhr`, `tglhr`, `pendidikan`, `jabatan`, `agama`, `foto`, `status`, `spesialmengajar`) VALUES
+('001', 'Rokayah', 'aya@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'Bandar Lampung', '0823XXXXXX', 'Wanita', 'Lampung Barat', '1991-03-02', 'Strata 1 (S1)', 'Akademik', 'Islam', '', 'Instruktur Tetap', 'Desain Grafis, Office'),
+('002', 'Aan Sori', 'aansori@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'Kedaton Bandar Lampung', '0721077786', 'Pria', 'Ogan', '1982-08-01', 'Strata 1 (S1)', 'Akademik', 'Islam', '5018.jpg', 'Instruktur Tetap', 'Programming, Autocad');
 
 -- --------------------------------------------------------
 
