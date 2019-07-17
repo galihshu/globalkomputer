@@ -8,7 +8,6 @@ if (empty($_SESSION['user']) AND empty($_SESSION['password'])){
 // Apabila user sudah login dengan benar, maka terbentuklah session
 else{
   include "../../../config/koneksi.php";
-  include "../../../config/fungsi_seo.php";
 
   $module = $_GET['module'];
   $act    = $_GET['act'];

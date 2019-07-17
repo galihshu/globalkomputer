@@ -187,7 +187,6 @@ else {
 	        </div>
 	       </div>
 	      </section>
-
 		<?php 
       	break;
 	}

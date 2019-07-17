@@ -133,7 +133,7 @@
           </ul>
         </li>
 
-        <li><a href="#"><i class="fa fa-sign-out"></i> <span>Sign Out</span></a></li>
+        <li><a href="logout.php"><i class="fa fa-sign-out"></i> <span>Sign Out</span></a></li>
       </ul>
       <!-- /.sidebar-menu -->
     </section>

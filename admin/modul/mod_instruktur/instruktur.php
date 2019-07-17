@@ -40,7 +40,7 @@ else {
 				        $data  	= mysqli_fetch_all($hasil, MYSQLI_ASSOC);
 		  				?>
 
-		  				<p><input type="button" class="btn btn-primary" value="Tambah Instruktur" onclick="window.location.href='?module=instruktur&act=add'"></p>
+		  				<p><a class="btn btn-primary" href="?module=instruktur&act=add">Tambah Instruktur</a></p>
 
 		  				<div class="responsive">
 	                    <table id="example1" class="table table-bordered table-striped">
@@ -237,14 +237,14 @@ else {
 
       	case "edit" : ?>
         	<?php 
-			$query = "SELECT * FROM siswa WHERE nis='$_GET[id]'";
+			$query = "SELECT * FROM instruktur WHERE kdinstruktur='$_GET[id]'";
 			$hasil = mysqli_query($con, $query);
 			$r     = mysqli_fetch_assoc($hasil);
 
 	      	?>
 			<section class="content-header">
 				<h1>
-					Edit Siswa
+					Edit Instruktur
 				</h1>
 				<ol class="breadcrumb">
 					<li><a href="media.php?module=home"><i class="fa fa-dashboard"></i> Dashboard</a></li>
@@ -257,19 +257,19 @@ else {
 				<div class="col-md-12">
 		  			<div class="box box-primary">
 		    			<div class="box-header with-border">
-		      				<h3 class="box-title">Form Siswa</h3>
+		      				<h3 class="box-title">Form Instruktur</h3>
 		    			</div>
 
-	          			<form method="POST" action="<?php echo $aksi .'?module=siswa&act=update'; ?>" enctype="multipart/form-data">
-	          				<input type="hidden" name="id" value="<?php echo $r['nis']; ?>">
+	          			<form method="POST" action="<?php echo $aksi .'?module=instruktur&act=update'; ?>" enctype="multipart/form-data">
+	          				<input type="hidden" name="id" value="<?php echo $r['kdinstruktur']; ?>">
 							<div class="box-body">
 							<div class="form-group">
-								<label for="exampleInputNis">Nomor Induk Siswa</label>
-								<input type="text" name="nis" class="form-control" id="nis" placeholder="Nomor Induk Siswa" value="<?php echo $r['nis']; ?>">
+								<label for="exampleInputKdInstruktur">Kode Instruktur</label>
+								<input type="text" name="kdinstruktur" class="form-control" id="kdinstruktur" placeholder="Kode Instruktur" value="<?php echo $r['kdinstruktur']; ?>">
 							</div>
 							<div class="form-group">
-								<label for="exampleInputNama">Nama Siswa</label>
-								<input type="text" name="nama_siswa" class="form-control" value="<?php echo $r['nama_siswa']; ?>" id="nama_siswa" placeholder="Nama Siswa">
+								<label for="exampleInputNama">Nama Instruktur</label>
+								<input type="text" name="nama" class="form-control" value="<?php echo $r['nama']; ?>" id="nama" placeholder="Nama Instruktur">
 							</div>
 							<div class="form-group">
 								<label for="exampleInputPass">Password</label>
@@ -279,68 +279,6 @@ else {
 							<div class="form-group">
 								<label for="exampleInputEmail">Alamat Email</label>
 								<input type="email" name="email" value="<?php echo $r['email']; ?>" class="form-control" id="email" placeholder="Alamat Email">
-							</div>
-
-							<div class="form-group">
-								<label for="exampleInputNokwi">Nomor Kwitansi</label>
-								<input type="text" name="nokwi" value="<?php echo $r['nokwi']; ?>" class="form-control" id="nokwi" placeholder="Nomor Kwitansi">
-							</div>
-
-							<div class="form-group">
-								<label for="exampleInputDaftar">Tanggal Daftar</label>
-								<div class="input-group date">
-				                  <div class="input-group-addon">
-				                    <i class="fa fa-calendar"></i>
-				                  </div>
-				                  <?php 
-									$tgldaftar		= date('Y-m-d', strtotime($r['tgldaftar']));
-				                  ?>
-				                  <input type="date" name="tgldaftar" class="form-control pull-right" value="<?php echo $tgldaftar; ?>" id="tgldaftar" placeholder="Tanggal Daftar">
-				                </div>
-
-							</div>
-
-							<div class="form-group">
-								<label for="ProgramStudi">Program Studi</label>
-								<select class="form-control" name="kode_program" id="kode_program">
-									<?php 
-									$query = "SELECT * FROM program_studi ORDER BY nama_program";
-									$p = mysqli_query($con, $query);
-									
-
-									while($w=mysqli_fetch_array($p)){
-										if($r['kode_program']==$w['kode_program']) {
-
-											echo "<option value='$w[kode_program]' selected>$w[nama_program]</option>";
-											}
-											else {
-											echo "<option value='$w[kode_program]'>$w[nama_program]</option>";
-										}
-									} 
-
-									?>
-								</select>
-							</div>
-							
-							<div class="form-group">
-								<label for="exampleInputAngkatan">Angkatan</label>
-								<?php 
-								$get_thn=substr("$r[angkatan]",0,4);
-								$thn_sekarang=date("Y");
-								combotgl(1970,$thn_sekarang,'angkatan',$get_thn);
-								?>
-							</div>
-
-	  						<div class="form-group">
-								<label for="gambar">Foto Siswa</label><br>
-								<a href="../img_siswa/<?php echo $r['foto']; ?>">
-								  <img src="../img_siswa/<?php echo $r['foto']; ?>" width=250 class="rounded">
-								</a>
-							</div>  
-
-	  						<div class="form-group">
-								<label for="exampleFormControlFile1">Ganti Foto Siswa</label>
-								<input type="file" name="foto" class="form-control-file" id="exampleFormControlFile1">
 							</div>
 
 							<div class="form-group">
@@ -441,18 +379,46 @@ else {
 							</div>						
 							
 							<div class="form-group">
-								<label for="AsalSekolah">Asal Sekolah</label>
-								<input type="text" name="asalsekolah" value="<?php echo $r['asalsekolah']; ?>" class="form-control" id="asalsekolah" placeholder="Asal Sekolah">
-							</div>						
+								<label for="exampleInputTplhr">Pendidikan Terakhir</label>
+								<input type="text" name="pendidikan" class="form-control" id="pendidikan" value="<?php echo $r['pendidikan']; ?>" placeholder="Pendidikan Terakhir">
+							</div>
 
 							<div class="form-group">
-								<label for="exampleInputThlulus">Tahun Lulus</label>
-								<?php 
-								$get_thn=substr("$r[thnlulus]",0,4);
-								$thn_sekarang=date("Y");
-								combotgl(1970,$thn_sekarang,'thnlulus',$get_thn);
-								?>
-							</div>								
+								<label for="exampleInputTplhr">Jabatan</label>
+								<input type="text" name="jabatan" value="<?php echo $r['jabatan']; ?>" class="form-control" id="jabatan" placeholder="Jabatan">
+							</div>
+
+							<div class="form-group">
+								<label for="status">Status</label>
+								<select class="form-control" name="status" id="status">
+									<?php if ($r['status']=='Instruktur Tetap') { ?>
+										<option value="Instruktur Tetap" selected>Instruktur Tetap</option>
+										<option value="Instruktur Freelance">Instruktur Freelance</option>
+									<?php }
+									 else { ?>
+										<option value="Instruktur Tetap">Instruktur Tetap</option>
+										<option value="Instruktur Freelance" selected>Instruktur Freelance</option>	
+									<?php } ?>
+								</select>
+							</div>
+
+
+							<div class="form-group">
+								<label for="exampleInputTitle">Spesial Mengajar</label>
+								<textarea name="spesialmengajar" class="form-control" id="spesialmengajar" rows="3"><?php echo $r['spesialmengajar']; ?></textarea>
+							</div>
+
+							<div class="form-group">
+								<label for="gambar">Foto Siswa</label><br>
+								<a href="../img_instruktur/<?php echo $r['foto']; ?>">
+								  <img src="../img_instruktur/<?php echo $r['foto']; ?>" width=250 class="rounded">
+								</a>
+							</div>  
+
+	  						<div class="form-group">
+								<label for="exampleFormControlFile1">Ganti Foto Instruktur</label>
+								<input type="file" name="foto" class="form-control-file" id="exampleFormControlFile1">
+							</div>							
 
 							<div class="box-footer">
 								<button type="submit" class="btn btn-primary">Update</button>
@@ -466,143 +432,6 @@ else {
 	</section>
 	<?php 
     break;
-
-  	case "search" : ?>
-  		<section class="content-header">
-			<h1>
-				Cari Data Siswa
-			</h1>
-			<ol class="breadcrumb">
-				<li><a href="media.php?module=home"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-				<li class="active">Cari Siswa</li>
-			</ol>
-		</section>
-	    	
-	    <section class="content">
-			<div class="row">
-				<div class="col-md-12">
-		  			<div class="box box-primary">
-		    			<div class="box-header with-border">
-		      				<h3 class="box-title">Pilih Kategori Pencarian</h3>
-		    			</div>
-
-		    			<form method="post" action="?module=siswa" autocomplete="off">
-		    			<div class="box-body">
-		    				<div class="form-group">
-			    				<div class="input-group">
-	                        		<span class="input-group-addon">
-	                          			<input type="checkbox" name="nisCat">
-	                        		</span>
-	                    			<input type="text" class="form-control pencarian" name="nis" placeholder="Nomor Induk Siswa" id="textbox">
-	                  			</div>
-	                  		</div>
-	                  		<div class="form-group">
-	                  			<div class="input-group">
-	                        		<span class="input-group-addon">
-	                          			<input type="checkbox" name="nama_siswaCat">
-	                        		</span>
-	                    			<input type="text" class="form-control" name="nama_siswa" placeholder="Nama Siswa">
-	                  			</div>
-	                  		</div>
-
-	                  		<div class="form-group">
-								<div class="input-group">
-									<span class="input-group-addon">
-	                          			<input type="checkbox" name="kode_programCat">
-	                        		</span>
-									<select class="form-control" name="kode_program" id="kode_program">
-										<option value="" selected>Pilih Program Studi</option>
-										<?php
-										$query = "SELECT * FROM program_studi ORDER BY kode_program";
-										$hasil = mysqli_query($con, $query);
-										$data = mysqli_fetch_all($hasil, MYSQLI_ASSOC);
-										foreach ($data as $a) :
-										?>
-										<option value="<?php echo $a['kode_program']; ?>"><?php echo $a['nama_program']; ?></option>
-										<?php endforeach; ?>
-									</select>
-								</div>	
-							</div>
-
-							<div class="form-group">
-								<div class="input-group">
-									<span class="input-group-addon">
-	                          			<input type="checkbox" name="angkatanCat">
-	                        		</span>
-									<select name="angkatan" class="form-control">
-										<option value="" selected>Pilih Angkatan</option>
-										<?php
-										for ($a=1990; $a<=$thn_sekarang;$a++){
-											echo "<option value='$a'>$a</option>";
-										}
-										?>
-									</select>
-								</div>
-							</div>
-
-							<div class="form-group">
-								<div class="input-group">
-									<span class="input-group-addon">
-	                          			<input type="checkbox" name="jekelCat">
-	                        		</span>
-									<select class="form-control" name="jekel" id="jekel">
-										<option value="" selected>Pilih Jenis Kelamin</option>
-										<option value="Pria">Pria</option>
-										<option value="Wanita">Wanita</option>
-									</select>
-								</div>	
-							</div>
-
-							<div class="box-footer">
-								<input type="submit" name="submit" class="btn btn-primary" value="Cari Siswa">
-							</div>
-						</div>
-						</form>
-		    		</div>
-		    	</div>
-		    </div>
-		</section>
-
-		 <!-- Trigger the modal with a button -->
-		<!-- Modal -->
-		<div class="modal fade" id="myModal" role="dialog">
-			<div class="modal-dialog">
-				<!-- Modal content-->
-				<div class="modal-content">
-				  <div class="modal-header">
-				     <button type="button" class="close" data-dismiss="modal">&times;</button>
-				     <h4 class="modal-title">DATA SISWA</h4>
-				  </div>
-				  <div class="modal-body">
-				     <table id="example" class="table table-bordered">
-				        <thead>
-				           <tr>
-				              <th>NIS</th>
-				              <th>Nama Siswa</th>
-				           </tr>
-				        </thead>
-				        <tbody>
-				        	<?php
-		  				    $query  = "SELECT nis,nama_siswa FROM siswa ORDER BY nis ASC";
-					        $hasil 	= mysqli_query($con, $query);
-					        $datacari  	= mysqli_fetch_all($hasil, MYSQLI_ASSOC);
-					        foreach($datacari as $dc) : 
-		  					?>
-					           <tr id="data" onClick="masuk(this,'<?php echo $dc['nis']; ?>')" href="javascript:void(0)">
-					              <td><a id="data" onClick="masuk(this,'<?php echo $dc['nis']; ?>')" href="javascript:void(0)"><?php echo $dc['nis']; ?></a></td>
-					              <td><?php echo $dc['nama_siswa']; ?></td>
-					           </tr>
-				       		<?php endforeach; ?>
-				        </tbody>
-				     </table>
-				  </div>
-				  <div class="modal-footer">
-				     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-				  </div>
-				</div>
-			</div>
-		</div>
-  	<?php break;
 	}
 }
 ?>
